@@ -151,8 +151,8 @@ module Diplomat
 
         # Values can be json so try to parse that too
         begin
-          @value = JSON.parse(@value)  
-        rescue JSON::ParserError => e unless @value.nil?
+          @value = JSON.parse(@value) unless @value.nil?  
+        rescue JSON::ParserError => e
           #Not JSON string
         end 
 
