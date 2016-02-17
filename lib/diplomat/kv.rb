@@ -62,7 +62,7 @@ module Diplomat
       url += check_acl_token unless check_acl_token.nil?
       @raw = @conn.get concat_url url
       parse_list(skip_directories)
-      @list 
+      @list
     end
 
     # Get everything matching the key value, this is fast!
@@ -70,7 +70,7 @@ module Diplomat
     # @return [Hash] The list of keys with matching value
     def get_recursive key
       @key = key
-      url = ["/v1/kv/#{@key}","recurse"]
+      url = ["/v1/kv/#{@key}/","recurse"]
       url += check_acl_token unless check_acl_token.nil?
       @raw = @conn.get concat_url url
       parse_results
@@ -151,10 +151,10 @@ module Diplomat
 
         # Values can be json so try to parse that too
         begin
-          @value = JSON.parse(@value) unless @value.nil?  
+          @value = JSON.parse(@value) unless @value.nil?
         rescue JSON::ParserError => e
           #Not JSON string
-        end 
+        end
 
         # Split path/to/key into array and turn it into hash
         # Point that hash into value
@@ -176,7 +176,7 @@ module Diplomat
       @value = Base64.decode64(@value) unless @value.nil?
     end
 
-    # Turn big nested hash into nice namespaced #{k}=#{v} hashes 
+    # Turn big nested hash into nice namespaced #{k}=#{v} hashes
     def nested_hash_to_key_value_hash(source, target = {}, namespace = nil)
       prefix = "#{namespace}/" if namespace
       case source
